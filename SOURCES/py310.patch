@@ -1,0 +1,27 @@
+From a6ac88fa03735e94938693c354f28937e1e51ab7 Mon Sep 17 00:00:00 2001
+From: Victor Stinner <vstinner@python.org>
+Date: Mon, 14 Dec 2020 14:02:29 +0100
+Subject: [PATCH] Port _SixMetaPathImporter to Python 3.10
+
+Fixes #341.
+---
+ six.py | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/six.py b/six.py
+index 83f69783..d162d09c 100644
+--- a/six.py
++++ b/six.py
+@@ -223,6 +223,12 @@ def get_code(self, fullname):
+         return None
+     get_source = get_code  # same as get_code
+ 
++    def create_module(self, spec):
++        return self.load_module(spec.name)
++
++    def exec_module(self, module):
++        pass
++
+ _importer = _SixMetaPathImporter(__name__)
+ 
+ 
